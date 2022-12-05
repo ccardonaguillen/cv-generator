@@ -87,7 +87,7 @@ class Experience extends Component {
         return (
             <div className="section" id="experience">
                 <SectionHeader text="Work Experience" />
-                {this.state.workExp.map((item) => (
+                {this.state[this.props.sectionKey].map((item) => (
                     <form.ExperienceForm
                         key={item.id}
                         id={item.id}
@@ -104,24 +104,70 @@ class Experience extends Component {
 }
 
 class Education extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { [this.props.sectionKey]: [] };
+
+        this.addItem = addItem.bind(this);
+        this.removeItem = removeItem.bind(this);
+        this.updateItem = updateItem.bind(this);
+    }
+
+    componentDidMount() {
+        this.addItem();
+    }
+
     render() {
         return (
             <div className="section" id="education">
                 <SectionHeader text="Education" />
-                <form.EducationForm />
-                <button id="new-education">Add</button>
+                {this.state[this.props.sectionKey].map((item) => (
+                    <form.EducationForm
+                        key={item.id}
+                        id={item.id}
+                        onChange={this.updateItem}
+                        onDelBtnClick={this.removeItem}
+                    />
+                ))}
+                <button id="new-work-exp" onClick={this.addItem}>
+                    Add
+                </button>{' '}
             </div>
         );
     }
 }
 
 class Skills extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { [this.props.sectionKey]: [] };
+
+        this.addItem = addItem.bind(this);
+        this.removeItem = removeItem.bind(this);
+        this.updateItem = updateItem.bind(this);
+    }
+
+    componentDidMount() {
+        this.addItem();
+    }
+
     render() {
         return (
             <div className="section" id="skills">
                 <SectionHeader text="Skills" />
-                <form.SkillsForm />
-                <button id="new-skill">Add</button>
+                {this.state[this.props.sectionKey].map((item) => (
+                    <form.SkillsForm
+                        key={item.id}
+                        id={item.id}
+                        onChange={this.updateItem}
+                        onDelBtnClick={this.removeItem}
+                    />
+                ))}
+                <button id="new-work-exp" onClick={this.addItem}>
+                    Add
+                </button>{' '}
             </div>
         );
     }

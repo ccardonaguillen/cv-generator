@@ -64,20 +64,7 @@ class PersonalInfoForm extends Component {
 }
 
 class ExperienceForm extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            company: '',
-            position: '',
-            startDate: '',
-            endDate: '',
-            location: '',
-            details: '',
-        };
-
-        this.updateWorkExp = updateSection.bind(this);
-    }
+    updateWorkExp = updateSection.bind(this);
 
     render() {
         const { id, onDelBtnClick } = this.props;
@@ -128,7 +115,10 @@ class ExperienceForm extends Component {
 }
 
 class EducationForm extends Component {
+    updateWorkExp = updateSection.bind(this);
+
     render() {
+        const { id, onDelBtnClick } = this.props;
         return (
             <div className="section-form">
                 <form>
@@ -141,15 +131,20 @@ class EducationForm extends Component {
                     {/* <button type="submit" className="edit-education">
                         Edit
                     </button> */}
-                    <button className="delete-item">Delete</button>
                 </form>
+                <button className="delete-item" onClick={() => onDelBtnClick(id)}>
+                    Delete
+                </button>
             </div>
         );
     }
 }
 
 class SkillsForm extends Component {
+    updateWorkExp = updateSection.bind(this);
+
     render() {
+        const { id, onDelBtnClick } = this.props;
         return (
             <div className="section-form">
                 <form>
@@ -158,8 +153,10 @@ class SkillsForm extends Component {
                     {/* <button type="submit" className="edit-skill">
                         Edit
                     </button> */}
-                    <button className="delete-item">Delete</button>
                 </form>
+                <button className="delete-item" onClick={() => onDelBtnClick(id)}>
+                    Delete
+                </button>
             </div>
         );
     }
