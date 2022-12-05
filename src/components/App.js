@@ -1,13 +1,41 @@
+import { Component } from 'react';
 import '../styles/App.css';
 import CVForm from './CVForm';
 import Preview from './Preview';
 
-function App() {
-    return (
-        <div>
-            <p>Hello World</p>
-        </div>
-    );
+class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            personalInfo: {},
+            workExp: [{}],
+            education: [{}],
+            skills: [{}],
+        };
+
+        this.updateCV = this.updateCV.bind(this);
+    }
+
+    updateCV(newState) {
+        console.log(newState);
+        this.setState(newState);
+    }
+
+    render() {
+        return (
+            <div id="app">
+                <div id="hero">
+                    <h1>CV Generator</h1>
+                    <h3>Create you CV by filling out the form provided in the left panel</h3>
+                </div>
+
+                <div id="app-container">
+                    <CVForm onChange={this.updateCV} />
+                    <Preview />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

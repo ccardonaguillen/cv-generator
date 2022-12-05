@@ -1,0 +1,30 @@
+#app {
+    width: min(80vw, 1200px);
+    height: 90vh;
+    /* background-color: blue; */
+}
+
+#hero>* {
+    margin: 0;
+    text-align: center;
+}
+
+#hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#app-container {
+    display: flex;
+    gap: 1rem;
+    height: 70vh;
+    margin: 2rem 2rem;
+    /* background-color: purple; */
+}
+
+#app-container>div {
+    flex: 1;
+    overflow: auto;
+    padding: 3rem 2rem;
+    border: 2px solid
+}
