@@ -15,12 +15,12 @@ class InputBlock extends Component {
 
 class TextAreaBlock extends Component {
     render() {
-        const { id, label } = this.props;
+        const { id, label, onChange } = this.props;
 
         return (
             <div className="input-block">
                 <label htmlFor={id}>{label}:</label>
-                <textarea id={id} />
+                <textarea id={id} onInput={onChange} />
             </div>
         );
     }

@@ -38,9 +38,9 @@ function updateCVForm(section) {
     section.props.onChange({ [section.props.sectionKey]: section.state });
 }
 
-function componentDidMount() {
-    this.addItem();
-}
+// function componentDidMount() {
+//     this.addItem();
+// }
 
 class PersonalInfo extends Component {
     constructor(props) {
@@ -53,6 +53,7 @@ class PersonalInfo extends Component {
             address: '',
             github: '',
             linkedin: '',
+            about: '',
         };
 
         this.updatePersonalInfo = updateItem.bind(this);

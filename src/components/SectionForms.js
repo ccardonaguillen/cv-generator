@@ -3,15 +3,11 @@ import React, { Component } from 'react';
 import * as block from './InputBlock';
 
 function updateSection(e) {
-    const inputTarget = e.target.id;
-    const inputValue = e.target.value;
+    const { id, onChange } = this.props;
+    const field = e.target.id;
+    const value = e.target.value;
 
-    const newState = {};
-    newState[inputTarget] = inputValue;
-
-    this.props.id === undefined
-        ? this.props.onChange({ newInfo: newState })
-        : this.props.onChange({ newId: this.props.id, newInfo: newState });
+    onChange({ newId: id, newInfo: { [field]: value } });
 }
 
 class PersonalInfo extends Component {
@@ -55,6 +51,11 @@ class PersonalInfo extends Component {
                         id="linkedin"
                         type="text"
                         label="LinkedIn"
+                        onChange={this.updatePersonalInfo}
+                    />
+                    <block.TextAreaBlock
+                        id="about"
+                        label="About"
                         onChange={this.updatePersonalInfo}
                     />
                 </form>
@@ -101,7 +102,11 @@ class Experience extends Component {
                         label="Location"
                         onChange={this.updateWorkExp}
                     />
-                    <block.TextAreaBlock id="details" label="Details" />
+                    <block.TextAreaBlock
+                        id="details"
+                        label="Details"
+                        onChange={this.updateWorkExp}
+                    />
                     {/* <button type="submit" className="edit-work-exp">
                         Edit
                     </button> */}
