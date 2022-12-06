@@ -8,9 +8,9 @@ class App extends Component {
         super();
         this.state = {
             personalInfo: {},
-            workExp: [{}],
-            education: [{}],
-            skills: [{}],
+            workExp: { items: [] },
+            education: { items: [] },
+            skills: { items: [] },
         };
 
         this.updateCV = this.updateCV.bind(this);

@@ -120,19 +120,49 @@ class Experience extends Component {
 }
 
 class Education extends Component {
-    updateWorkExp = updateSection.bind(this);
+    updateEducation = updateSection.bind(this);
 
     render() {
         const { id, onDelBtnClick } = this.props;
         return (
             <div className="section-form">
                 <form>
-                    <block.InputBlock id="institution" type="text" label="Institution" />
-                    <block.InputBlock id="degree" type="text" label="Degree / Course" />
-                    <block.InputBlock id="startDate" type="number" label="From" />
-                    <block.InputBlock id="endDate" type="number" label="To" />
-                    <block.InputBlock id="location" type="text" label="Location" />
-                    <block.InputBlock id="extra-info" type="text" label="Additional Information" />
+                    <block.InputBlock
+                        id="institution"
+                        type="text"
+                        label="Institution"
+                        onChange={this.updateEducation}
+                    />
+                    <block.InputBlock
+                        id="degree"
+                        type="text"
+                        label="Degree / Course"
+                        onChange={this.updateEducation}
+                    />
+                    <block.InputBlock
+                        id="startDate"
+                        type="number"
+                        label="From"
+                        onChange={this.updateEducation}
+                    />
+                    <block.InputBlock
+                        id="endDate"
+                        type="number"
+                        label="To"
+                        onChange={this.updateEducation}
+                    />
+                    <block.InputBlock
+                        id="location"
+                        type="text"
+                        label="Location"
+                        onChange={this.updateEducation}
+                    />
+                    <block.InputBlock
+                        id="extra-info"
+                        type="text"
+                        label="Additional Information"
+                        onChange={this.updateEducation}
+                    />
                     {/* <button type="submit" className="edit-education">
                         Edit
                     </button> */}
@@ -146,15 +176,25 @@ class Education extends Component {
 }
 
 class Skills extends Component {
-    updateWorkExp = updateSection.bind(this);
+    updateSkill = updateSection.bind(this);
 
     render() {
         const { id, onDelBtnClick } = this.props;
         return (
             <div className="section-form">
                 <form>
-                    <block.InputBlock id="category" type="text" label="Category" />
-                    <block.InputBlock id="details" type="text" label="Details" />
+                    <block.InputBlock
+                        id="category"
+                        type="text"
+                        label="Category"
+                        onChange={this.updateSkill}
+                    />
+                    <block.InputBlock
+                        id="details"
+                        type="text"
+                        label="Details"
+                        onChange={this.updateSkill}
+                    />
                     {/* <button type="submit" className="edit-skill">
                         Edit
                     </button> */}
