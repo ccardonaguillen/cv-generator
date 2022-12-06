@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class InputBlock extends Component {
+class Input extends Component {
     render() {
         const { id, type, label, onChange } = this.props;
 
@@ -13,7 +13,7 @@ class InputBlock extends Component {
     }
 }
 
-class TextAreaBlock extends Component {
+class TextArea extends Component {
     render() {
         const { id, label, onChange } = this.props;
 
@@ -26,4 +26,4 @@ class TextAreaBlock extends Component {
     }
 }
 
-export { InputBlock, TextAreaBlock };
+export { Input, TextArea };

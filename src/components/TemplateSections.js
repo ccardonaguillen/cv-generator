@@ -1,6 +1,7 @@
 // import '../styles/PersonalInfoSection.css';
 import React, { Component } from 'react';
 import TemplateSectionHeader from './TemplateSectionHeader';
+import SectionForm from './SectionForms';
 import * as form from './SectionForms';
 import uniqid from 'uniqid';
 
@@ -20,13 +21,13 @@ async function removeItem(delId) {
     updateCVForm(this);
 }
 
-async function updateItem({ newId, newInfo }) {
+async function updateItem({ itemId, newInfo }) {
     const newState =
-        newId === undefined
+        itemId === undefined
             ? newInfo
             : {
                   items: this.state.items.map(({ id, item }) =>
-                      id === newId ? { id, item: { ...item, ...newInfo } } : { id, item }
+                      id === itemId ? { id, item: { ...item, ...newInfo } } : { id, item }
                   ),
               };
 
@@ -46,15 +47,7 @@ class PersonalInfo extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            fullName: '',
-            email: '',
-            phone: '',
-            address: '',
-            github: '',
-            linkedin: '',
-            about: '',
-        };
+        this.state = {};
 
         this.updatePersonalInfo = updateItem.bind(this);
     }
@@ -63,7 +56,18 @@ class PersonalInfo extends Component {
         return (
             <div className="section" id="personal-info">
                 <TemplateSectionHeader text="Personal Information" />
-                <form.PersonalInfo onChange={this.updatePersonalInfo} />
+                <SectionForm
+                    onChange={this.updatePersonalInfo}
+                    fields={[
+                        { id: 'fullName', type: 'text', label: 'Full Name' },
+                        { id: 'email', type: 'email', label: 'Email' },
+                        { id: 'phone', type: 'tel', label: 'Phone' },
+                        { id: 'address', type: 'text', label: 'Address' },
+                        { id: 'github', type: 'text', label: 'Github' },
+                        { id: 'linkedin', type: 'text', label: 'LinkedIn' },
+                        { id: 'about', type: 'textarea', label: 'About' },
+                    ]}
+                />
             </div>
         );
     }
@@ -89,11 +93,19 @@ class Experience extends Component {
             <div className="section" id="experience">
                 <TemplateSectionHeader text="Work Experience" />
                 {this.state.items.map((item) => (
-                    <form.Experience
+                    <SectionForm
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
                         onDelBtnClick={this.removeItem}
+                        fields={[
+                            { id: 'company', type: 'text', label: 'Company' },
+                            { id: 'position', type: 'text', label: 'Position' },
+                            { id: 'startDate', type: 'number', label: 'From' },
+                            { id: 'endDate', type: 'number', label: 'To' },
+                            { id: 'location', type: 'text', label: 'Location' },
+                            { id: 'details', type: 'textarea', label: 'Details' },
+                        ]}
                     />
                 ))}
                 <button id="new-work-exp" onClick={this.addItem}>
@@ -124,14 +136,22 @@ class Education extends Component {
             <div className="section" id="education">
                 <TemplateSectionHeader text="Education" />
                 {this.state.items.map((item) => (
-                    <form.Education
+                    <SectionForm
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
                         onDelBtnClick={this.removeItem}
+                        fields={[
+                            { id: 'institution', type: 'text', label: 'Institution' },
+                            { id: 'degree', type: 'text', label: 'Degree / Course' },
+                            { id: 'startDate', type: 'number', label: 'From' },
+                            { id: 'endDate', type: 'number', label: 'To' },
+                            { id: 'location', type: 'text', label: 'Location' },
+                            { id: 'details', type: 'textarea', label: 'Additional Info' },
+                        ]}
                     />
                 ))}
-                <button id="new-work-exp" onClick={this.addItem}>
+                <button id="new-education" onClick={this.addItem}>
                     Add
                 </button>{' '}
             </div>
@@ -159,14 +179,18 @@ class Skills extends Component {
             <div className="section" id="skills">
                 <TemplateSectionHeader text="Skills" />
                 {this.state.items.map((item) => (
-                    <form.Skills
+                    <SectionForm
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
                         onDelBtnClick={this.removeItem}
+                        fields={[
+                            { id: 'category', type: 'text', label: 'Category' },
+                            { id: 'details', type: 'textarea', label: 'Details' },
+                        ]}
                     />
                 ))}
-                <button id="new-work-exp" onClick={this.addItem}>
+                <button id="new-skill" onClick={this.addItem}>
                     Add
                 </button>{' '}
             </div>
