@@ -43,6 +43,9 @@ function updateCVForm(section) {
 //     this.addItem();
 // }
 
+class StandardSection extends Component {}
+
+class ExpandableSection extends Component {}
 class PersonalInfo extends Component {
     constructor(props) {
         super(props);
