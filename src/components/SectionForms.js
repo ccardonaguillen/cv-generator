@@ -17,14 +17,8 @@ class SectionForm extends Component {
         return (
             <div className="section-form">
                 <form>
-                    {this.props.fields.map(({ id, type, label }, idx) => (
-                        <InputBlock
-                            key={idx}
-                            id={id}
-                            type={type}
-                            label={label}
-                            onChange={this.updateItem}
-                        />
+                    {this.props.fields.map((attr, idx) => (
+                        <InputBlock key={idx} attr={attr} onChange={this.updateItem} />
                     ))}
                 </form>
             </div>

@@ -17,7 +17,7 @@ class App extends Component {
     }
 
     updateCV(newState) {
-        // console.log(newState);
+        console.log(newState);
         this.setState(newState);
     }
 

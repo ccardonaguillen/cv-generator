@@ -4,23 +4,25 @@ import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
 import uniqid from 'uniqid';
 
-async function addItem() {
-    const id = uniqid();
-
-    await this.setState({
-        items: this.state.items.concat({ id, item: {} }),
-    });
-    updateCVForm(this);
+function addItem() {
+    this.setState(
+        {
+            items: this.state.items.concat({ id: uniqid(), item: {} }),
+        },
+        () => updateCVForm(this)
+    );
 }
 
-async function deleteItem(itemId) {
-    await this.setState({
-        items: this.state.items.filter(({ id }) => id !== itemId),
-    });
-    updateCVForm(this);
+function deleteItem(itemId) {
+    this.setState(
+        {
+            items: this.state.items.filter(({ id }) => id !== itemId),
+        },
+        () => updateCVForm(this)
+    );
 }
 
-async function updateSection({ itemId, newInfo }) {
+function updateSection({ itemId, newInfo }) {
     const newState =
         itemId === undefined
             ? newInfo
@@ -30,8 +32,7 @@ async function updateSection({ itemId, newInfo }) {
                   ),
               };
 
-    await this.setState(newState);
-    updateCVForm(this);
+    this.setState(newState, () => updateCVForm(this));
 }
 
 function updateCVForm(section) {
@@ -44,6 +45,13 @@ function updateCVForm(section) {
 
 class StandardSection extends Component {
     updateSection = updateSection.bind(this);
+
+    componentDidMount() {
+        this.setState(
+            this.props.fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {}),
+            () => updateCVForm(this)
+        );
+    }
 
     render() {
         const { id, title, fields } = this.props;
@@ -66,6 +74,18 @@ class ExpandableSection extends Component {
 
     componentDidMount() {
         this.addItem();
+        this.setState(
+            {
+                items: this.state.items.concat({
+                    id: uniqid(),
+                    item: this.props.fields.reduce(
+                        (acc, field) => ({ ...acc, [field.id]: field.value }),
+                        {}
+                    ),
+                }),
+            },
+            () => updateCVForm(this)
+        );
     }
 
     render() {
