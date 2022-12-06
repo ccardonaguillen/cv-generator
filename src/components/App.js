@@ -7,8 +7,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            personalInfo: {},
-            workExp: { items: [] },
+            personal: {},
+            experience: { items: [] },
             education: { items: [] },
             skills: { items: [] },
         };

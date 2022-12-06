@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import InputBlock from './InputBlock';
 
-function updateSection(e) {
+function updateItem(e) {
     const { id, onChange } = this.props;
     const field = e.target.id;
     const value = e.target.value;
@@ -11,19 +11,19 @@ function updateSection(e) {
 }
 
 class SectionForm extends Component {
-    updateSection = updateSection.bind(this);
+    updateItem = updateItem.bind(this);
 
     render() {
         return (
             <div className="section-form">
                 <form>
-                    {this.fields.map(({ id, type, label }, idx) => (
+                    {this.props.fields.map(({ id, type, label }, idx) => (
                         <InputBlock
                             key={idx}
                             id={id}
                             type={type}
                             label={label}
-                            onChange={this.updateSection}
+                            onChange={this.updateItem}
                         />
                     ))}
                 </form>

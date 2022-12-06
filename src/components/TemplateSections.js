@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
-import * as form from './SectionForms';
 import uniqid from 'uniqid';
 
 async function addItem() {
@@ -14,14 +13,14 @@ async function addItem() {
     updateCVForm(this);
 }
 
-async function removeItem(delId) {
+async function deleteItem(itemId) {
     await this.setState({
-        items: this.state.items.filter(({ id }) => id !== delId),
+        items: this.state.items.filter(({ id }) => id !== itemId),
     });
     updateCVForm(this);
 }
 
-async function updateItem({ itemId, newInfo }) {
+async function updateSection({ itemId, newInfo }) {
     const newState =
         itemId === undefined
             ? newInfo
@@ -36,82 +35,54 @@ async function updateItem({ itemId, newInfo }) {
 }
 
 function updateCVForm(section) {
-    section.props.onChange({ [section.props.sectionKey]: section.state });
+    section.props.onChange({ [section.props.id]: section.state });
 }
 
 // function componentDidMount() {
 //     this.addItem();
 // }
 
-class StandardSection extends Component {}
-
-class ExpandableSection extends Component {}
-class PersonalInfo extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-
-        this.updatePersonalInfo = updateItem.bind(this);
-    }
+class StandardSection extends Component {
+    updateSection = updateSection.bind(this);
 
     render() {
+        const { id, title, fields } = this.props;
+
         return (
-            <div className="section" id="personal-info">
-                <TemplateSectionHeader text="Personal Information" />
-                <SectionForm
-                    onChange={this.updatePersonalInfo}
-                    fields={[
-                        { id: 'fullName', type: 'text', label: 'Full Name' },
-                        { id: 'email', type: 'email', label: 'Email' },
-                        { id: 'phone', type: 'tel', label: 'Phone' },
-                        { id: 'address', type: 'text', label: 'Address' },
-                        { id: 'github', type: 'text', label: 'Github' },
-                        { id: 'linkedin', type: 'text', label: 'LinkedIn' },
-                        { id: 'about', type: 'textarea', label: 'About' },
-                    ]}
-                />
+            <div className="section" id={id}>
+                <TemplateSectionHeader title={title} />
+                <SectionForm onChange={this.updateSection} fields={fields} />
             </div>
         );
     }
 }
 
-class Experience extends Component {
-    constructor(props) {
-        super(props);
+class ExpandableSection extends Component {
+    state = { items: [] };
 
-        this.state = { items: [] };
-
-        this.addItem = addItem.bind(this);
-        this.removeItem = removeItem.bind(this);
-        this.updateItem = updateItem.bind(this);
-    }
+    addItem = addItem.bind(this);
+    deleteItem = deleteItem.bind(this);
+    updateSection = updateSection.bind(this);
 
     componentDidMount() {
         this.addItem();
     }
 
     render() {
+        const { id, title, fields } = this.props;
+
         return (
-            <div className="section" id="experience">
-                <TemplateSectionHeader text="Work Experience" />
+            <div className="section" id={id}>
+                <TemplateSectionHeader title={title} />
                 {this.state.items.map((item) => (
-                    <SectionForm
-                        key={item.id}
-                        id={item.id}
-                        onChange={this.updateItem}
-                        onDelBtnClick={this.removeItem}
-                        fields={[
-                            { id: 'company', type: 'text', label: 'Company' },
-                            { id: 'position', type: 'text', label: 'Position' },
-                            { id: 'startDate', type: 'number', label: 'From' },
-                            { id: 'endDate', type: 'number', label: 'To' },
-                            { id: 'location', type: 'text', label: 'Location' },
-                            { id: 'details', type: 'textarea', label: 'Details' },
-                        ]}
-                    />
+                    <div className="section-item" key={item.id}>
+                        <SectionForm id={item.id} onChange={this.updateSection} fields={fields} />
+                        <button id="del-item" onClick={() => this.deleteItem(item.id)}>
+                            Delete
+                        </button>
+                    </div>
                 ))}
-                <button id="new-work-exp" onClick={this.addItem}>
+                <button id="new-item" onClick={this.addItem}>
                     Add
                 </button>
             </div>
@@ -119,86 +90,4 @@ class Experience extends Component {
     }
 }
 
-class Education extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { items: [] };
-
-        this.addItem = addItem.bind(this);
-        this.removeItem = removeItem.bind(this);
-        this.updateItem = updateItem.bind(this);
-    }
-
-    componentDidMount() {
-        this.addItem();
-    }
-
-    render() {
-        return (
-            <div className="section" id="education">
-                <TemplateSectionHeader text="Education" />
-                {this.state.items.map((item) => (
-                    <SectionForm
-                        key={item.id}
-                        id={item.id}
-                        onChange={this.updateItem}
-                        onDelBtnClick={this.removeItem}
-                        fields={[
-                            { id: 'institution', type: 'text', label: 'Institution' },
-                            { id: 'degree', type: 'text', label: 'Degree / Course' },
-                            { id: 'startDate', type: 'number', label: 'From' },
-                            { id: 'endDate', type: 'number', label: 'To' },
-                            { id: 'location', type: 'text', label: 'Location' },
-                            { id: 'details', type: 'textarea', label: 'Additional Info' },
-                        ]}
-                    />
-                ))}
-                <button id="new-education" onClick={this.addItem}>
-                    Add
-                </button>{' '}
-            </div>
-        );
-    }
-}
-
-class Skills extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { items: [] };
-
-        this.addItem = addItem.bind(this);
-        this.removeItem = removeItem.bind(this);
-        this.updateItem = updateItem.bind(this);
-    }
-
-    componentDidMount() {
-        this.addItem();
-    }
-
-    render() {
-        return (
-            <div className="section" id="skills">
-                <TemplateSectionHeader text="Skills" />
-                {this.state.items.map((item) => (
-                    <SectionForm
-                        key={item.id}
-                        id={item.id}
-                        onChange={this.updateItem}
-                        onDelBtnClick={this.removeItem}
-                        fields={[
-                            { id: 'category', type: 'text', label: 'Category' },
-                            { id: 'details', type: 'textarea', label: 'Details' },
-                        ]}
-                    />
-                ))}
-                <button id="new-skill" onClick={this.addItem}>
-                    Add
-                </button>{' '}
-            </div>
-        );
-    }
-}
-
-export { PersonalInfo, Experience, Education, Skills };
+export { StandardSection, ExpandableSection };

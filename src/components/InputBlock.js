@@ -6,11 +6,11 @@ class InputBlock extends Component {
 
         return (
             <div className="input-block">
-                <label htmlFor={id}>{label}:</label>
+                {/* <label htmlFor={id}>{label}:</label> */}
                 {type === 'textarea' ? (
-                    <textarea id={id} onInput={onChange} />
+                    <textarea id={id} placeholder={label} onInput={onChange} />
                 ) : (
-                    <input id={id} type={type} onChange={onChange} />
+                    <input id={id} type={type} placeholder={label} onChange={onChange} />
                 )}
             </div>
         );
