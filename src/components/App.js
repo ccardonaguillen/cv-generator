@@ -31,7 +31,7 @@ class App extends Component {
 
                 <div id="app-container">
                     <CVForm onChange={this.updateCV} />
-                    <Preview />
+                    <Preview info={this.state} />
                 </div>
             </div>
         );

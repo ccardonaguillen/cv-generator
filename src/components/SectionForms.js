@@ -10,11 +10,11 @@ function updateSection(e) {
     newState[inputTarget] = inputValue;
 
     this.props.id === undefined
-        ? this.props.onChange({ newItem: newState })
-        : this.props.onChange({ newId: this.props.id, newItem: newState });
+        ? this.props.onChange({ newInfo: newState })
+        : this.props.onChange({ newId: this.props.id, newInfo: newState });
 }
 
-class PersonalInfoForm extends Component {
+class PersonalInfo extends Component {
     updatePersonalInfo = updateSection.bind(this);
 
     render() {
@@ -63,7 +63,7 @@ class PersonalInfoForm extends Component {
     }
 }
 
-class ExperienceForm extends Component {
+class Experience extends Component {
     updateWorkExp = updateSection.bind(this);
 
     render() {
@@ -114,7 +114,7 @@ class ExperienceForm extends Component {
     }
 }
 
-class EducationForm extends Component {
+class Education extends Component {
     updateWorkExp = updateSection.bind(this);
 
     render() {
@@ -140,7 +140,7 @@ class EducationForm extends Component {
     }
 }
 
-class SkillsForm extends Component {
+class Skills extends Component {
     updateWorkExp = updateSection.bind(this);
 
     render() {
@@ -162,4 +162,4 @@ class SkillsForm extends Component {
     }
 }
 
-export { PersonalInfoForm, ExperienceForm, EducationForm, SkillsForm };
+export { PersonalInfo, Experience, Education, Skills };

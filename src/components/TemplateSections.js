@@ -1,68 +1,68 @@
 // import '../styles/PersonalInfoSection.css';
 import React, { Component } from 'react';
-import SectionHeader from './SectionHeader';
+import TemplateSectionHeader from './TemplateSectionHeader';
 import * as form from './SectionForms';
 import uniqid from 'uniqid';
 
-function addItem() {
+async function addItem() {
     const id = uniqid();
 
-    this.setState({
-        [this.props.sectionKey]: this.state[this.props.sectionKey].concat({ id, item: {} }),
+    await this.setState({
+        items: this.state.items.concat({ id, item: {} }),
     });
+    updateCVForm(this);
 }
 
-function removeItem(delId) {
-    this.setState({
-        [this.props.sectionKey]: this.state[this.props.sectionKey].filter(({ id }) => id !== delId),
+async function removeItem(delId) {
+    await this.setState({
+        items: this.state.items.filter(({ id }) => id !== delId),
     });
+    updateCVForm(this);
 }
 
-function updateItem({ newId, newItem }) {
-    this.setState(
-        {
-            [this.props.sectionKey]:
-                newId === undefined
-                    ? newItem
-                    : this.state[this.props.sectionKey].map(({ id, item }) =>
-                          id === newId ? { id, item: newItem } : { id, item }
-                      ),
-        },
-        () => this.props.onChange(this.state)
-    );
+async function updateItem({ newId, newInfo }) {
+    const newState =
+        newId === undefined
+            ? newInfo
+            : {
+                  items: this.state.items.map(({ id, item }) =>
+                      id === newId ? { id, item: { ...item, ...newInfo } } : { id, item }
+                  ),
+              };
+
+    await this.setState(newState);
+    updateCVForm(this);
 }
 
-// function componentDidMount() {
-//     this.addItem();
-// }
+function updateCVForm(section) {
+    section.props.onChange({ [section.props.sectionKey]: section.state });
+}
+
+function componentDidMount() {
+    this.addItem();
+}
 
 class PersonalInfo extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            [this.props.sectionKey]: {
-                fullName: '',
-                email: '',
-                phone: '',
-                address: '',
-                github: '',
-                linkedin: '',
-            },
+            fullName: '',
+            email: '',
+            phone: '',
+            address: '',
+            github: '',
+            linkedin: '',
         };
 
         this.updatePersonalInfo = updateItem.bind(this);
     }
 
-    updatePersonalInfo({ newItem }) {
-        this.setState({ personalInfo: newItem }, () => this.props.onChange(this.state));
-    }
-
     render() {
         return (
             <div className="section" id="personal-info">
-                <SectionHeader text="Personal Information" />
-                <form.PersonalInfoForm onChange={this.updatePersonalInfo} />
+                <TemplateSectionHeader text="Personal Information" />
+                <form.PersonalInfo onChange={this.updatePersonalInfo} />
             </div>
         );
     }
@@ -72,7 +72,7 @@ class Experience extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { [this.props.sectionKey]: [] };
+        this.state = { items: [] };
 
         this.addItem = addItem.bind(this);
         this.removeItem = removeItem.bind(this);
@@ -86,9 +86,9 @@ class Experience extends Component {
     render() {
         return (
             <div className="section" id="experience">
-                <SectionHeader text="Work Experience" />
-                {this.state[this.props.sectionKey].map((item) => (
-                    <form.ExperienceForm
+                <TemplateSectionHeader text="Work Experience" />
+                {this.state.items.map((item) => (
+                    <form.Experience
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
@@ -107,7 +107,7 @@ class Education extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { [this.props.sectionKey]: [] };
+        this.state = { items: [] };
 
         this.addItem = addItem.bind(this);
         this.removeItem = removeItem.bind(this);
@@ -121,9 +121,9 @@ class Education extends Component {
     render() {
         return (
             <div className="section" id="education">
-                <SectionHeader text="Education" />
-                {this.state[this.props.sectionKey].map((item) => (
-                    <form.EducationForm
+                <TemplateSectionHeader text="Education" />
+                {this.state.items.map((item) => (
+                    <form.Education
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
@@ -142,7 +142,7 @@ class Skills extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { [this.props.sectionKey]: [] };
+        this.state = { items: [] };
 
         this.addItem = addItem.bind(this);
         this.removeItem = removeItem.bind(this);
@@ -156,9 +156,9 @@ class Skills extends Component {
     render() {
         return (
             <div className="section" id="skills">
-                <SectionHeader text="Skills" />
-                {this.state[this.props.sectionKey].map((item) => (
-                    <form.SkillsForm
+                <TemplateSectionHeader text="Skills" />
+                {this.state.items.map((item) => (
+                    <form.Skills
                         key={item.id}
                         id={item.id}
                         onChange={this.updateItem}
