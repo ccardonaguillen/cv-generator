@@ -3,19 +3,24 @@ import React, { Component } from 'react';
 class InputBlock extends Component {
     render() {
         const { id, type, label, value } = this.props.attr;
-        const { onChange } = this.props;
+        const { renderDefault, onChange } = this.props;
 
         return (
             <div className="input-block">
                 {/* <label htmlFor={id}>{label}:</label> */}
                 {type === 'textarea' ? (
-                    <textarea id={id} placeholder={label} defaultValue={value} onInput={onChange} />
+                    <textarea
+                        id={id}
+                        placeholder={label}
+                        defaultValue={renderDefault ? value : ''}
+                        onInput={onChange}
+                    />
                 ) : (
                     <input
                         id={id}
                         type={type}
                         placeholder={label}
-                        defaultValue={value}
+                        defaultValue={renderDefault ? value : ''}
                         autoComplete="off"
                         onChange={onChange}
                     />

@@ -59,7 +59,7 @@ class StandardSection extends Component {
         return (
             <div id={id}>
                 <TemplateSectionHeader title={title} />
-                <SectionForm onChange={this.updateSection} fields={fields} />
+                <SectionForm onChange={this.updateSection} fields={fields} renderDefault={true} />
             </div>
         );
     }
@@ -82,6 +82,7 @@ class ExpandableSection extends Component {
                         (acc, field) => ({ ...acc, [field.id]: field.value }),
                         {}
                     ),
+                    renderDefault: true,
                 }),
             },
             () => updateCVForm(this)
@@ -94,10 +95,15 @@ class ExpandableSection extends Component {
         return (
             <div className="template-section" id={id}>
                 <TemplateSectionHeader title={title} />
-                {this.state.items.map((item) => (
-                    <div className="template-section-item" key={item.id}>
-                        <SectionForm id={item.id} onChange={this.updateSection} fields={fields} />
-                        <button className="del-item" onClick={() => this.deleteItem(item.id)}>
+                {this.state.items.map(({ id, renderDefault }) => (
+                    <div className="template-section-item" key={id}>
+                        <SectionForm
+                            id={id}
+                            onChange={this.updateSection}
+                            fields={fields}
+                            renderDefault={renderDefault}
+                        />
+                        <button className="del-item" onClick={() => this.deleteItem(id)}>
                             Delete Item
                         </button>
                     </div>
