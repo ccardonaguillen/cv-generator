@@ -10,7 +10,7 @@ class Credits extends Component {
                     <p>Design and code</p>
                     <a href="https://github.com/ccardonaguillen">Carlos Cardona</a>
                 </div>
-                <a href="https://github.com/ccardonaguillen/weather-app">
+                <a href={'https://github.com/ccardonaguillen/' + this.props.project}>
                     <img src={githubIcon} alt="Github" id="github-logo" />
                 </a>
             </div>
