@@ -57,7 +57,7 @@ class StandardSection extends Component {
         const { id, title, fields } = this.props;
 
         return (
-            <div className="section" id={id}>
+            <div id={id}>
                 <TemplateSectionHeader title={title} />
                 <SectionForm onChange={this.updateSection} fields={fields} />
             </div>
@@ -92,18 +92,18 @@ class ExpandableSection extends Component {
         const { id, title, fields } = this.props;
 
         return (
-            <div className="section" id={id}>
+            <div className="template-section" id={id}>
                 <TemplateSectionHeader title={title} />
                 {this.state.items.map((item) => (
-                    <div className="section-item" key={item.id}>
+                    <div className="template-section-item" key={item.id}>
                         <SectionForm id={item.id} onChange={this.updateSection} fields={fields} />
-                        <button id="del-item" onClick={() => this.deleteItem(item.id)}>
-                            Delete
+                        <button className="del-item" onClick={() => this.deleteItem(item.id)}>
+                            Delete Item
                         </button>
                     </div>
                 ))}
-                <button id="new-item" onClick={this.addItem}>
-                    Add
+                <button className="new-item" onClick={this.addItem}>
+                    Add Item
                 </button>
             </div>
         );

@@ -1,0 +1,97 @@
+input,
+textarea {
+    box-sizing: border-box;
+    appearance: none;
+    width: 100%;
+    margin: 0.2rem 0;
+    padding: 0.2rem 0.2rem;
+    border: none;
+    border-bottom: 2px solid;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: var(--font-family);
+    background-color: var(--bkg-color);
+}
+
+textarea {
+    resize: vertical;
+    height: 5.5em;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-bottom: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+button {
+    appearance: none;
+    border: 2px solid var(--dark-color);
+    border-radius: 3px;
+    padding: 0.2rem 0.8rem;
+    font-family: var(--font-family);
+    font-weight: bold;
+    color: var(--dark-color);
+    background-color: hsl(0, 0%, 95%);
+}
+
+button:hover {
+    color: var(--dark-color);
+    background-color: hsl(0, 0%, 85%);
+    box-shadow: 0.5px 0.5px 0.5px;
+}
+
+button:active {
+    color: var(--dark-color);
+    background-color: hsl(0, 0%, 85%);
+    box-shadow: 0.5px 0.5px 0.5px inset;
+    padding: 0.3rem 0.7rem 0.1rem 0.9rem;
+}
+
+#cv-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    background-color: var(--bkg-color);
+}
+
+.template-hsep {
+    width: 7rem;
+    border-bottom: 0.3rem solid var(--dark-color)
+}
+
+.template-section {
+    position: relative;
+}
+
+.template-section-header {
+    margin-bottom: 0.8rem;
+}
+
+.template-section-header>h1 {
+    text-transform: uppercase;
+    color: var(--dark-color)
+}
+
+.template-section-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.template-section-item>button {
+    align-self: end;
+}
+
+.section-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.template-section .new-item {
+    position: absolute;
+    bottom: -2.8rem;
+    right: 0%
+}

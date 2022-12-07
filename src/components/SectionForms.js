@@ -15,8 +15,8 @@ class SectionForm extends Component {
 
     render() {
         return (
-            <div className="section-form">
-                <form>
+            <div>
+                <form className="section-form">
                     {this.props.fields.map((attr, idx) => (
                         <InputBlock key={idx} attr={attr} onChange={this.updateItem} />
                     ))}

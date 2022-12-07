@@ -1,0 +1,153 @@
+#preview {
+    display: grid;
+    grid-template: min-content 1fr / 100px min-content 1fr;
+    grid-template-areas:
+        'sidebar sep header'
+        'sidebar sep content';
+    background-color: white;
+}
+
+
+#preview-vsep {
+    grid-area: sep;
+    height: 100%;
+    border-right: 1px dotted;
+    margin: 0 1.2rem;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    grid-area: sidebar;
+
+}
+
+#profile-pic {
+    align-self: center;
+    height: 10rem;
+    width: 10rem;
+    border: 2px solid;
+    border-radius: 50%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    clip-path: circle(50%)
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-bottom: 0.8rem;
+}
+
+.sidebar-header>h2 {
+    text-align: right;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+}
+
+.sidebar-hsep {
+    height: 0;
+    width: 4.5rem;
+    border-bottom: 0.2rem solid;
+    color: var(--dark-color);
+}
+
+.sidebar-item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.sidebar-item-header {
+    display: flex;
+}
+
+.sidebar-item-header>svg {
+    margin-top: 0.04rem;
+    margin-right: 0.2rem;
+    height: 0.75rem;
+}
+
+.sidebar-item-header>h3 {
+    font-size: 0.8rem;
+}
+
+.sidebar-item-text {
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-align: right;
+    color: black;
+}
+
+.sidebar-item-text:visited {
+    color: black;
+}
+
+#header {
+    margin-bottom: 2rem;
+}
+
+#header>h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--accent-color)
+}
+
+#header>p {
+    font-size: 0.9rem;
+}
+
+#header strong {
+    color: var(--dark-color)
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.section-header {
+    margin-bottom: 0.6rem;
+}
+
+.section-header h2 {
+    text-transform: uppercase;
+    color: var(--dark-color)
+}
+
+.preview-hsep {
+    width: 5rem;
+    border-bottom: 0.25rem solid;
+    color: var(--dark-color);
+}
+
+.section-item>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-item strong {
+    color: var(--accent-color)
+}
+
+.section-item p,
+.section-item em,
+.section-item strong {
+    font-size: 0.9rem;
+}

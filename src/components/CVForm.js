@@ -16,7 +16,7 @@ class CVForm extends Component {
                             id: 'fullName',
                             type: 'text',
                             label: 'Full Name',
-                            value: 'Homer Simpson',
+                            value: 'Homer J. Simpson',
                         },
                         {
                             id: 'email',
@@ -37,7 +37,11 @@ class CVForm extends Component {
                             id: 'about',
                             type: 'textarea',
                             label: 'About',
-                            value: 'I am a simple man with a simple goal in life: to eat the biggest donuts ever created',
+                            value:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
+                                'incididunt ut labore et dolore magna aliqua. Tempus imperdiet nulla malesuada ' +
+                                'pellentesque elit eget gravida cum. Pellentesque dignissim enim sit amet venenatis ' +
+                                'urna cursus eget. Aliquet risus feugiat in ante metus.',
                         },
                     ]}
                 />
@@ -66,7 +70,16 @@ class CVForm extends Component {
                             label: 'Location',
                             value: 'Springfield (IL)',
                         },
-                        { id: 'details', type: 'textarea', label: 'Details' },
+                        {
+                            id: 'details',
+                            type: 'textarea',
+                            label: 'Details',
+                            value:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
+                                'incididunt ut labore et dolore magna aliqua. Tempus imperdiet nulla malesuada ' +
+                                'pellentesque elit eget gravida cum. Pellentesque dignissim enim sit amet venenatis ' +
+                                'urna cursus eget. Aliquet risus feugiat in ante metus.',
+                        },
                     ]}
                 />
                 <ExpandableSection

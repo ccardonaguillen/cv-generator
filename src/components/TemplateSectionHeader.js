@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 class TemplateSectionHeader extends Component {
     render() {
         return (
-            <div className="section-header">
+            <div className="template-section-header">
                 <h1>{this.props.title}</h1>
-                <div className="horizontal-sep"></div>
+                <div className="template-hsep"></div>
             </div>
         );
     }

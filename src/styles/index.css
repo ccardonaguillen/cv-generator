@@ -1,5 +1,10 @@
 :root {
-  font-family: 62.5%;
+  font-size: 62.5%;
+  --font-family: Raleway, Verdana, Geneva, Tahoma, sans-serif;
+  --dark-color: hsl(233, 33%, 26%);
+  --accent-color: hsl(214, 73%, 45%);
+  --bkg-color: hsl(219, 35%, 85%);
+
 }
 
 body {
@@ -9,7 +14,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-color);
 }
+
+h1,
+h2,
+h3,
+p,
+em,
+strong {
+  font-family: var(--font-family);
+  margin: 0;
+}
+
 
 #root {
   display: flex;
