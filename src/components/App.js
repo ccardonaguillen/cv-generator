@@ -34,7 +34,7 @@ class App extends Component {
                     <CVForm onChange={this.updateCV} />
                     <Preview info={this.state} />
                 </div>
-                <Credits />
+                <Credits project="cv-generator"/>
             </div>
         );
     }
