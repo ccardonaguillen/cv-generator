@@ -2,6 +2,7 @@ import { Component } from 'react';
 import '../styles/App.css';
 import CVForm from './CVForm';
 import Preview from './Preview';
+import Credits from './Credits';
 
 class App extends Component {
     constructor() {
@@ -33,6 +34,7 @@ class App extends Component {
                     <CVForm onChange={this.updateCV} />
                     <Preview info={this.state} />
                 </div>
+                <Credits />
             </div>
         );
     }
