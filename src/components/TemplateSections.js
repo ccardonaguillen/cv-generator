@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import TemplateSectionHeader from './TemplateSectionHeader';
+// import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
 import uniqid from 'uniqid';
 
@@ -88,3 +88,12 @@ function ExpandableSection(props) {
     );
 }
 export { StandardSection, ExpandableSection };
+
+function TemplateSectionHeader(props) {
+    return (
+        <div className="template-section-header">
+            <h1>{props.title}</h1>
+            <div className="template-hsep"></div>
+        </div>
+    );
+}

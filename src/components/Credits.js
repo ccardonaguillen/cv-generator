@@ -1,21 +1,17 @@
-import { Component } from 'react';
+import React from 'react';
 import '../styles/Credits.css';
 import githubIcon from '../assets/github.svg';
 
-class Credits extends Component {
-    render() {
-        return (
-            <div id="credits">
-                <div>
-                    <p>Design and code</p>
-                    <a href="https://github.com/ccardonaguillen">Carlos Cardona</a>
-                </div>
-                <a href={'https://github.com/ccardonaguillen/' + this.props.project}>
-                    <img src={githubIcon} alt="Github" id="github-logo" />
-                </a>
+export default function Credits(props) {
+    return (
+        <div id="credits">
+            <div>
+                <p>Design and code</p>
+                <a href="https://github.com/ccardonaguillen">Carlos Cardona</a>
             </div>
-        );
-    }
+            <a href={'https://github.com/ccardonaguillen/' + props.project}>
+                <img src={githubIcon} alt="Github" id="github-logo" />
+            </a>
+        </div>
+    );
 }
-
-export default Credits;
