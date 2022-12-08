@@ -4,7 +4,6 @@ import * as section from './PreviewSection';
 
 export default function Preview(props) {
     const { personal, experience, education, skills } = props.content;
-    console.log(experience);
 
     return (
         <div id="preview">

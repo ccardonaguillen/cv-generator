@@ -1,12 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 // import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
 import uniqid from 'uniqid';
 
+function itemReducer(items, action) {
+    switch (action.type) {
+        case 'add':
+            return items.concat({ id: uniqid(), item: {} });
+        case 'delete':
+            return items.filter(({ id }) => id !== action.id);
+        case 'update':
+            return action.id === undefined
+                ? { ...items, ...action.field }
+                : items.map(({ id, item }) =>
+                      id === action.id ? { id, item: { ...item, ...action.field } } : { id, item }
+                  );
+        default:
+            throw Error('Unknown action: ' + action.type);
+    }
+}
+
 function StandardSection(props) {
     const { id, title, fields, onChange } = props;
-    const [item, setItem] = useState(
+    const [item, dispatch] = useReducer(
+        itemReducer,
         fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {})
     );
 
@@ -19,21 +37,22 @@ function StandardSection(props) {
         onChange({ [id]: item });
     }, [item]);
 
-    function updateSection({ newInfo }) {
-        setItem((prevItem) => ({ ...prevItem, ...newInfo }));
-    }
-
     return (
         <div id={id}>
             <TemplateSectionHeader title={title} />
-            <SectionForm onChange={updateSection} fields={fields} renderDefault={true} />
+            <SectionForm
+                onChange={({ field }) => dispatch({ type: 'update', field })}
+                fields={fields}
+                renderDefault={true}
+            />
         </div>
     );
 }
 
 function ExpandableSection(props) {
     const { id, title, fields, onChange } = props;
-    const [items, setItems] = useState([
+
+    const [items, dispatch] = useReducer(itemReducer, [
         {
             id: uniqid(),
             item: fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {}),
@@ -49,22 +68,6 @@ function ExpandableSection(props) {
         onChange({ [id]: items });
     }, [items]);
 
-    function addItem() {
-        setItems((prevItems) => prevItems.concat({ id: uniqid(), item: {} }));
-    }
-
-    function deleteItem(itemId) {
-        setItems((prevItems) => prevItems.filter(({ id }) => id !== itemId));
-    }
-
-    function updateSection({ itemId, newInfo }) {
-        setItems((prevItems) =>
-            prevItems.map(({ id, item }) =>
-                id === itemId ? { id, item: { ...item, ...newInfo } } : { id, item }
-            )
-        );
-    }
-
     return (
         <div className="template-section" id={id}>
             <TemplateSectionHeader title={title} />
@@ -72,16 +75,16 @@ function ExpandableSection(props) {
                 <div className="template-section-item" key={id}>
                     <SectionForm
                         id={id}
-                        onChange={updateSection}
+                        onChange={({ id, field }) => dispatch({ type: 'update', id, field })}
                         fields={fields}
                         renderDefault={renderDefault}
                     />
-                    <button className="del-item" onClick={() => deleteItem(id)}>
+                    <button className="del-item" onClick={() => dispatch({ type: 'delete', id })}>
                         Delete Item
                     </button>
                 </div>
             ))}
-            <button className="new-item" onClick={addItem}>
+            <button className="new-item" onClick={() => dispatch({ type: 'add' })}>
                 Add Item
             </button>
         </div>

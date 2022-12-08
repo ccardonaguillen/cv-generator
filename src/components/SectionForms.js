@@ -5,10 +5,10 @@ import InputBlock from './InputBlock';
 export default function SectionForm(props) {
     function updateItem(e) {
         const { id, onChange } = props;
-        const field = e.target.id;
+        const name = e.target.id;
         const value = e.target.value;
 
-        onChange({ itemId: id, newInfo: { [field]: value } });
+        onChange({ id, field: { [name]: value } });
     }
 
     return (
