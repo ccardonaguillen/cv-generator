@@ -1,119 +1,73 @@
 // import '../styles/PersonalInfoSection.css';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
 import uniqid from 'uniqid';
 
-function addItem() {
-    this.setState(
-        {
-            items: this.state.items.concat({ id: uniqid(), item: {} }),
-        },
-        () => updateCVForm(this)
+function StandardSection(props) {
+    const { id, title, fields, onChange } = props;
+    const [item, setItem] = useState({});
+
+    useEffect(() => {
+        onChange({ [id]: item });
+    }, [item]);
+
+    function updateSection({ newInfo }) {
+        setItem(newInfo);
+    }
+
+    return (
+        <div id={id}>
+            <TemplateSectionHeader title={title} />
+            <SectionForm onChange={updateSection} fields={fields} renderDefault={true} />
+        </div>
     );
 }
 
-function deleteItem(itemId) {
-    this.setState(
-        {
-            items: this.state.items.filter(({ id }) => id !== itemId),
-        },
-        () => updateCVForm(this)
+function ExpandableSection(props) {
+    const [items, setItems] = useState([]);
+    const { id, title, fields, onChange } = props;
+
+    useEffect(() => {
+        onChange({ [id]: items });
+    }, [items]);
+
+    function addItem() {
+        setItems(items.concat({ id: uniqid(), item: {} }));
+    }
+
+    function deleteItem(itemId) {
+        setItems(items.filter(({ id }) => id !== itemId));
+    }
+
+    function updateSection({ itemId, newInfo }) {
+        setItems(
+            items.map(({ id, item }) =>
+                id === itemId ? { id, item: { ...item, ...newInfo } } : { id, item }
+            )
+        );
+    }
+
+    return (
+        <div className="template-section" id={id}>
+            <TemplateSectionHeader title={title} />
+            {items.map(({ id, renderDefault }) => (
+                <div className="template-section-item" key={id}>
+                    <SectionForm
+                        id={id}
+                        onChange={updateSection}
+                        fields={fields}
+                        renderDefault={renderDefault}
+                    />
+                    <button className="del-item" onClick={() => deleteItem(id)}>
+                        Delete Item
+                    </button>
+                </div>
+            ))}
+            <button className="new-item" onClick={addItem}>
+                Add Item
+            </button>
+        </div>
     );
 }
-
-function updateSection({ itemId, newInfo }) {
-    const newState =
-        itemId === undefined
-            ? newInfo
-            : {
-                  items: this.state.items.map(({ id, item }) =>
-                      id === itemId ? { id, item: { ...item, ...newInfo } } : { id, item }
-                  ),
-              };
-
-    this.setState(newState, () => updateCVForm(this));
-}
-
-function updateCVForm(section) {
-    section.props.onChange({ [section.props.id]: section.state });
-}
-
-// function componentDidMount() {
-//     this.addItem();
-// }
-
-class StandardSection extends Component {
-    updateSection = updateSection.bind(this);
-
-    componentDidMount() {
-        this.setState(
-            this.props.fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {}),
-            () => updateCVForm(this)
-        );
-    }
-
-    render() {
-        const { id, title, fields } = this.props;
-
-        return (
-            <div id={id}>
-                <TemplateSectionHeader title={title} />
-                <SectionForm onChange={this.updateSection} fields={fields} renderDefault={true} />
-            </div>
-        );
-    }
-}
-
-class ExpandableSection extends Component {
-    state = { items: [] };
-
-    addItem = addItem.bind(this);
-    deleteItem = deleteItem.bind(this);
-    updateSection = updateSection.bind(this);
-
-    componentDidMount() {
-        this.addItem();
-        this.setState(
-            {
-                items: this.state.items.concat({
-                    id: uniqid(),
-                    item: this.props.fields.reduce(
-                        (acc, field) => ({ ...acc, [field.id]: field.value }),
-                        {}
-                    ),
-                    renderDefault: true,
-                }),
-            },
-            () => updateCVForm(this)
-        );
-    }
-
-    render() {
-        const { id, title, fields } = this.props;
-
-        return (
-            <div className="template-section" id={id}>
-                <TemplateSectionHeader title={title} />
-                {this.state.items.map(({ id, renderDefault }) => (
-                    <div className="template-section-item" key={id}>
-                        <SectionForm
-                            id={id}
-                            onChange={this.updateSection}
-                            fields={fields}
-                            renderDefault={renderDefault}
-                        />
-                        <button className="del-item" onClick={() => this.deleteItem(id)}>
-                            Delete Item
-                        </button>
-                    </div>
-                ))}
-                <button className="new-item" onClick={this.addItem}>
-                    Add Item
-                </button>
-            </div>
-        );
-    }
-}
-
 export { StandardSection, ExpandableSection };
