@@ -1,4 +1,4 @@
-// import '../styles/PersonalInfoSection.css';
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import TemplateSectionHeader from './TemplateSectionHeader';
 import SectionForm from './SectionForms';
@@ -6,14 +6,21 @@ import uniqid from 'uniqid';
 
 function StandardSection(props) {
     const { id, title, fields, onChange } = props;
-    const [item, setItem] = useState({});
+    const [item, setItem] = useState(
+        fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {})
+    );
+
+    useEffect(() => {
+        // console.log(item);
+        onChange({ [id]: item });
+    }, []);
 
     useEffect(() => {
         onChange({ [id]: item });
     }, [item]);
 
     function updateSection({ newInfo }) {
-        setItem(newInfo);
+        setItem((prevItem) => ({ ...prevItem, ...newInfo }));
     }
 
     return (
@@ -25,24 +32,34 @@ function StandardSection(props) {
 }
 
 function ExpandableSection(props) {
-    const [items, setItems] = useState([]);
     const { id, title, fields, onChange } = props;
+    const [items, setItems] = useState([
+        {
+            id: uniqid(),
+            item: fields.reduce((acc, field) => ({ ...acc, [field.id]: field.value }), {}),
+            renderDefault: true,
+        },
+    ]);
+
+    useEffect(() => {
+        onChange({ [id]: items });
+    }, []);
 
     useEffect(() => {
         onChange({ [id]: items });
     }, [items]);
 
     function addItem() {
-        setItems(items.concat({ id: uniqid(), item: {} }));
+        setItems((prevItems) => prevItems.concat({ id: uniqid(), item: {} }));
     }
 
     function deleteItem(itemId) {
-        setItems(items.filter(({ id }) => id !== itemId));
+        setItems((prevItems) => prevItems.filter(({ id }) => id !== itemId));
     }
 
     function updateSection({ itemId, newInfo }) {
-        setItems(
-            items.map(({ id, item }) =>
+        setItems((prevItems) =>
+            prevItems.map(({ id, item }) =>
                 id === itemId ? { id, item: { ...item, ...newInfo } } : { id, item }
             )
         );

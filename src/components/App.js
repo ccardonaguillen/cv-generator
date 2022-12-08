@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import '../styles/App.css';
 import CVForm from './CVForm';
 import Preview from './Preview';
@@ -6,15 +6,14 @@ import Credits from './Credits';
 
 export default function App(props) {
     const [content, setContent] = useState({
-        personal: { item: '' },
-        experience: { items: [] },
-        education: { items: [] },
-        skills: { items: [] },
+        personal: {},
+        experience: [],
+        education: [],
+        skills: [],
     });
 
     function updateCV(newContent) {
-        // console.log(newState);
-        setContent({ ...content, ...newContent });
+        setContent((prevContent) => ({ ...prevContent, ...newContent }));
     }
 
     return (
@@ -26,8 +25,8 @@ export default function App(props) {
 
             <div id="app-container">
                 <CVForm onChange={updateCV} />
-                <div id="preview"></div>
-                {/* <Preview info={this.state} /> */}
+                {/* <div id="preview"></div> */}
+                <Preview content={content} />
             </div>
             <Credits project="cv-generator" />
         </div>

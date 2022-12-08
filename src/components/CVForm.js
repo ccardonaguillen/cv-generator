@@ -120,8 +120,13 @@ class CVForm extends Component {
                     id="skills"
                     title="Other Skills"
                     fields={[
-                        { id: 'category', type: 'text', label: 'Category' },
-                        { id: 'details', type: 'textarea', label: 'Details' },
+                        { id: 'category', type: 'text', label: 'Category', value: 'Languages' },
+                        {
+                            id: 'details',
+                            type: 'textarea',
+                            label: 'Details',
+                            value: 'American (mother tongue)',
+                        },
                     ]}
                 />
             </div>
